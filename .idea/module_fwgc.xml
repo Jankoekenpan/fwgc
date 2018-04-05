@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="module_fwgc" default="compile.module.fwgc">
+  <dirname property="module.fwgc.basedir" file="${ant.file.module_fwgc}"/>
+  
+  <property name="module.jdk.home.fwgc" value="${project.jdk.home}"/>
+  <property name="module.jdk.bin.fwgc" value="${project.jdk.bin}"/>
+  <property name="module.jdk.classpath.fwgc" value="${project.jdk.classpath}"/>
+  
+  <property name="compiler.args.fwgc" value="-encoding UTF-8 ${compiler.args}"/>
+  
+  <property name="fwgc.output.dir" value="undefined"/>
+  <property name="fwgc.testoutput.dir" value="undefined"/>
+  
+  <path id="fwgc.module.bootclasspath">
+    <!-- Paths to be included in compilation bootclasspath -->
+  </path>
+  
+  <path id="fwgc.module.production.classpath">
+    <path refid="${module.jdk.classpath.fwgc}"/>
+  </path>
+  
+  <path id="fwgc.runtime.production.module.classpath"/>
+  
+  <path id="fwgc.module.classpath">
+    <path refid="${module.jdk.classpath.fwgc}"/>
+  </path>
+  
+  <path id="fwgc.runtime.module.classpath"/>
+  
+  
+  <patternset id="excluded.from.module.fwgc">
+    <patternset refid="ignored.files"/>
+  </patternset>
+  
+  <patternset id="excluded.from.compilation.fwgc">
+    <patternset refid="excluded.from.module.fwgc"/>
+  </patternset>
+  
+  
+  <target name="compile.module.fwgc" depends="compile.module.fwgc.production,compile.module.fwgc.tests" description="Compile module fwgc"/>
+  
+  <target name="compile.module.fwgc.production" depends="register.custom.compilers" description="Compile module fwgc; production classes"/>
+  
+  <target name="compile.module.fwgc.tests" depends="register.custom.compilers,compile.module.fwgc.production" description="compile module fwgc; test classes" unless="skip.tests"/>
+  
+  <target name="clean.module.fwgc" description="cleanup module">
+    <delete dir="${fwgc.output.dir}"/>
+    <delete dir="${fwgc.testoutput.dir}"/>
+  </target>
+</project>
